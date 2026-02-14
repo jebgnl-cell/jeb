@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine's Day ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        text-align: center;
+        background: linear-gradient(135deg, #ffccd5, #ffc2d1);
+        overflow: hidden;
+    }
+
+    .page {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        backdrop-filter: blur(6px);
+    }
+
+    .active { opacity: 1; z-index: 2; }
+
+    h1 { color: #000; }
+
+    img {
+        width: 80%;
+        max-width: 380px;
+        border-radius: 20px;
+        box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        margin: 20px 0;
+    }
+
+    button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 25px;
+        background: #000;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: 0.3s;
+    }
+
+    button:hover { background: #333; }
+
+    .message {
+        max-width: 700px;
+        font-size: 18px;
+        line-height: 1.7;
+        color: #000;
+        white-space: pre-line;
+        min-height: 200px;
+    }
+
+    /* Flower message on final page */
+    .flowers-message {
+        font-size: 22px;
+        margin-top: 20px;
+        color: #e91e63; /* soft pink */
+        opacity: 0;
+        transition: opacity 2s;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: fixed;
+        bottom: -10px;
+        font-size: 20px;
+        animation: floatUp 6s linear infinite;
+        color: rgba(255,255,255,0.7);
+        z-index: 1;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Floating flowers */
+    .flower {
+        position: fixed;
+        bottom: -10px;
+        font-size: 18px;
+        animation: floatFlower 7s linear infinite;
+        color: rgba(255,192,203,0.8);
+        z-index: 1;
+    }
+
+    @keyframes floatFlower {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Pages -->
+<div class="page active" id="page1">
+    <h1>Happy Valentine’s Day 💖</h1>
+    <img src="photo1.jpg">
+    <button onclick="nextPage(2)">Next ➡</button>
+</div>
+
+<div class="page" id="page2">
+    <h1>Our Memories 🥰</h1>
+    <img src="photo2.jpg">
+    <button onclick="nextPage(3)">Next ➡</button>
+</div>
+
+<div class="page" id="page3">
+    <h1>More Beautiful Moments 💕</h1>
+    <img src="photo3.jpg">
+    <button onclick="nextPage(4)">Next ➡</button>
+</div>
+
+<div class="page" id="page4">
+    <h1>Forever With You ❤️</h1>
+    <img src="photo4.jpg">
+    <div class="message" id="typewriter"></div>
+    <div class="flowers-message" id="flowersMessage">🌸 This flower is for you, as you are the most beautiful person I've ever met 🌸</div>
+</div>
+
+<script>
+let musicStarted = false;
+
+function nextPage(pageNumber) {
+    // Start music on first interaction
+    if(!musicStarted){
+        const music = document.getElementById("bgMusic");
+        music.play().catch(()=>{}); // ignore autoplay errors
+        musicStarted = true;
+    }
+
+    // Switch pages
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    document.getElementById("page" + pageNumber).classList.add("active");
+
+    if(pageNumber === 4){ typeWriter(); }
+}
+
+// Floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 300);
+
+// Floating flowers
+function createFlower() {
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+    flower.innerHTML = "🌸"; 
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    flower.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(flower);
+    setTimeout(() => flower.remove(), 7000);
+}
+setInterval(createFlower, 500);
+
+// Typewriter Effect
+const messageText = `Happy Valentine’s Day, pookieee!
+
+I’m probably the luckiest man on earth to have you as my super duper, extremely pretty, beautiful, gorgeous, stunning cutie na pookieee 😚. I wish we could be the endgame of our story because we still have a lot of chapters to fill, and we’re just starting to create those happy moments together. I hope these happy moments with you will last forever.
+
+I hope you’re also doing well and always taking care of yourself. When life feels hard, don’t forget that I’m always here for you — someone you can lean on. I will always support you, whatever path you choose to take. And maybe soon, makikiss at mayayakap na natin ang isa’t isa 🖤.
+
+Love,
+Jeb`;
+
+let i = 0;
+function typeWriter() {
+    if (i < messageText.length) {
+        document.getElementById("typewriter").innerHTML += messageText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    } else {
+        // Show flower message when typing finishes
+        document.getElementById("flowersMessage").style.opacity = 1;
+    }
+}
+</script>
+
+</body>
+</html>
